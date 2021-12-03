@@ -22,14 +22,14 @@ export const randomBits = () => wasmRandomBits() >>> 0;
 export const randomInt = (bound) => wasmRandomInt(bound) >>> 0;
 
 /**
- * Returns a floating point number in the range [0,1) that has been rounded down
- * to the nearest multiple of 2⁻³².
+ * Returns a floating point number in the range [0, 1) that has been rounded
+ * down to the nearest multiple of 2⁻³².
  */
 export const random = () => randomBits() * 2 ** -32;
 
 /**
- * Updates the iternal state of the RNG. The RNG has 2⁶⁴ possible internal
- * states, and iterates through all of them.
+ * Updates the internal state of the generator. The generator has 2⁶⁴ possible
+ * internal states, and iterates through all of them.
  * @param state - a 64-bit unsigned BigInt representing the new state.
  */
 export const setState = (state) => {
@@ -37,7 +37,8 @@ export const setState = (state) => {
 };
 
 /**
- * Returns a 64-bit unsigned BigInt representing the internal state of the RNG.
+ * Returns a 64-bit unsigned BigInt representing the internal state of the
+ * generator.
  */
 export const getState = () => BigInt.asUintN(64, wasmState.value);
 

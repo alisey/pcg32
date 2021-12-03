@@ -22,16 +22,22 @@ export const randomBits = () => wasmRandomBits() >>> 0;
 export const randomInt = (bound) => wasmRandomInt(bound) >>> 0;
 
 /**
+ * Returns a floating point number in the range [0,1) that has been rounded down
+ * to the nearest multiple of 2⁻³².
+ */
+export const random = () => randomBits() * 2 ** -32;
+
+/**
  * Updates the iternal state of the RNG. The RNG has 2⁶⁴ possible internal
  * states, and iterates through all of them.
- * @param state a 64-bit unsigned integer representing the new state.
+ * @param state - a 64-bit unsigned BigInt representing the new state.
  */
 export const setState = (state) => {
     wasmState.value = state;
 };
 
 /**
- * Returns a 64-bit unsigned integer representing the internal state of the RNG.
+ * Returns a 64-bit unsigned BigInt representing the internal state of the RNG.
  */
 export const getState = () => BigInt.asUintN(64, wasmState.value);
 
@@ -39,7 +45,7 @@ export const getState = () => BigInt.asUintN(64, wasmState.value);
  * For this generator, there are 2⁶³ possible sequences of pseudorandom numbers.
  * Each sequence is entirely distinct and has a period of 2⁶⁴. This function
  * selects one of the sequences.
- * @param sequence an 64-bit odd BigInt.
+ * @param sequence - a 64-bit odd BigInt.
  */
 export const setSequence = (sequence) => {
     if ((sequence & 1n) !== 1n) {
@@ -48,4 +54,7 @@ export const setSequence = (sequence) => {
     wasmSequence.value = sequence;
 };
 
+/**
+ * Returns a 64-bit unsigned BigInt representing the selected sequence.
+ */
 export const getSequence = () => BigInt.asUintN(64, wasmSequence.value);

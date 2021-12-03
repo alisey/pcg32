@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "node build.js",
-    "start": "node extras/demo.js",
+    "demo": "node extras/demo.js",
     "pretest": "npm run build",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "perf": "node extras/perf.js"

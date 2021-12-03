@@ -1,27 +1,25 @@
-import { randomBits, randomInt } from '../dist/index.js';
+import { randomBits, randomInt, random } from '../dist/index.js';
 
 function perfMathRandom() {
     let sum = 0;
     const start = performance.now();
-    for (let i = 0; i < 1e6; i++) {
+    for (let i = 0; i < 1e8; i++) {
         sum += Math.random();
     }
     const end = performance.now();
-    console.log('');
     console.log('Math.random()');
     console.log('Sum: ', sum);
     console.log('Time: ', end - start);
 }
 
-function perfPcgRandomBits() {
+function perfPcgRandom() {
     let sum = 0;
     const start = performance.now();
-    for (let i = 0; i < 1e6; i++) {
-        sum += randomBits();
+    for (let i = 0; i < 1e8; i++) {
+        sum += random();
     }
     const end = performance.now();
-    console.log('');
-    console.log('pcg.randomBits()');
+    console.log('pcg32.random()');
     console.log('Sum: ', sum);
     console.log('Time: ', end - start);
 }
@@ -29,12 +27,11 @@ function perfPcgRandomBits() {
 function pefMathRandomInt() {
     let sum = 0;
     const start = performance.now();
-    for (let i = 0; i < 1e6; i++) {
-        sum += Math.floor(Math.random() * 0xfafafafa);
+    for (let i = 0; i < 1e8; i++) {
+        sum += Math.floor(Math.random() * 10);
     }
     const end = performance.now();
-    console.log('');
-    console.log('Math.floor(Math.random() * bound)');
+    console.log('Math.floor(Math.random() * 10)');
     console.log('Sum: ', sum);
     console.log('Time: ', end - start);
 }
@@ -42,17 +39,17 @@ function pefMathRandomInt() {
 function perfPcgRandomInt() {
     let sum = 0;
     const start = performance.now();
-    for (let i = 0; i < 1e6; i++) {
-        sum += randomInt(0xfafafafa);
+    for (let i = 0; i < 1e8; i++) {
+        sum += randomInt(10);
     }
     const end = performance.now();
-    console.log('');
-    console.log('pcg.randomInt(bound)');
+    console.log('pcg.randomInt(10)');
     console.log('Sum: ', sum);
     console.log('Time: ', end - start);
 }
 
 perfMathRandom();
-perfPcgRandomBits();
+perfPcgRandom();
+console.log('');
 pefMathRandomInt();
 perfPcgRandomInt();

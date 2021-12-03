@@ -1,6 +1,6 @@
 # PCG-32: A Seedable 32-bit PRNG
 
-This is JavaScript port of the PCG Random Number Generator, [Minimal C Edition](https://github.com/imneme/pcg-c-basic).
+This is a WebAssembly port of the PCG Random Number Generator, [Minimal C Edition](https://github.com/imneme/pcg-c-basic).
 
 It's slightly slower than `Math.random()` in V8, and provides only 32 bits of randomness instead of 52.
 

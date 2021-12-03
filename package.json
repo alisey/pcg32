@@ -1,0 +1,28 @@
+{
+  "name": "@alisey/pcg32",
+  "version": "0.1.0",
+  "author": "Alexey Lebedev",
+  "description": "PCG-32 random number generator implemented in WebAssembly",
+  "homepage": "https://github.com/alisey/pcg32",
+  "type": "module",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "start": "node extras/demo.js",
+    "pretest": "npm run build",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "perf": "node extras/perf.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "fs-extra": "^10.0.0",
+    "jest": "^27.4.3",
+    "wabt": "^1.0.24"
+  }
+}

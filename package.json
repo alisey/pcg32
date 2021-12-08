@@ -1,6 +1,6 @@
 {
     "name": "@alisey/pcg32",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": "Alexey Lebedev",
     "description": "PCG-32 random number generator implemented in WebAssembly",
     "homepage": "https://github.com/alisey/pcg32",

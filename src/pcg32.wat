@@ -1,16 +1,16 @@
 ;; Ported from https://github.com/imneme/pcg-c-basic
 
 (module
-    (export "state"      (global $state))
-    (export "sequence"   (global $sequence))
-    (export "randomBits" (func $random_bits))
-    (export "randomInt"  (func $random_int))
+    (export "state"       (global $state))
+    (export "sequence"    (global $sequence))
+    (export "randomInt32" (func $random_int_32))
+    (export "randomInt"   (func $random_int))
 
-    (global $state       (mut i64) (i64.const 0x853c49e6748fea9b))
-    (global $sequence    (mut i64) (i64.const 0xda3e39cb94b95bdb))
+    (global $state        (mut i64) (i64.const 0x853c49e6748fea9b))
+    (global $sequence     (mut i64) (i64.const 0xda3e39cb94b95bdb))
 
     ;; uint32_t pcg32_random()
-    (func $random_bits (result i32)
+    (func $random_int_32 (result i32)
         (local $old_state i64)
 
         ;; uint64_t old_state = state;
@@ -77,7 +77,7 @@
         (loop $try_random
             (br_if $try_random
                 (i32.lt_u
-                    (local.tee $random (call $random_bits))
+                    (local.tee $random (call $random_int_32))
                     (local.get $threshold)
                 )
             )

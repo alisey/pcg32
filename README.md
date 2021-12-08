@@ -1,46 +1,54 @@
 # PCG-32: A Seedable 32-bit PRNG
 
-A WebAssembly port of the PCG Random Number Generator, [Minimal C Edition](https://github.com/imneme/pcg-c-basic). It's slightly slower than `Math.random()` in V8, and provides only 32 bits of randomness instead of 52.
+A WebAssembly port of the PCG Random Number Generator, [Minimal C Edition](https://github.com/imneme/pcg-c-basic).
 
 ## Usage
 
 ```js
-import * as pcg32 from '@alisey/pcg32';
+import * as pcg from '@alisey/pcg32';
 
-pcg32.setState(0x0123456789ABCDEFn);
+pcg.setState(0x0123456789ABCDEFn);
 
-console.log(pcg32.randomBits());  // ⇒ 610837995
-console.log(pcg32.randomInt(10)); // ⇒ 7
-console.log(pcg32.random());      // ⇒ 0.24794234661385417
-console.log(pcg32.getState());    // ⇒ 4259798932287663464n
+console.log(pcg.randomInt(10)); // ⇒ 5
+console.log(pcg.random());      // ⇒ 0.3697000732146962
 ```
 
 ## API
 
-##### `randomBits(): number`
-
-Returns a uniformly distributed 32-bit unsigned random integer.
-
 ##### `randomInt(bound: number): number`
 
 Returns a uniformly distributed 32-bit unsigned random integer in the range
-[0, bound).
+[0, bound), where `bound` is a number from 1 to 2³².
 
 ##### `random(): number`
 
-Returns a floating point number in the range [0, 1) that has been rounded down
-to the nearest multiple of 2⁻³².
+Returns a uniformly distributed  floating point number in the range [0, 1) that
+has been rounded down to the nearest multiple of 2⁻⁵³.
 
-##### `setState(state: BigInt)`
+##### `setState(state: bigint): void`
 
 Updates the internal state of the generator. The generator has 2⁶⁴ possible
 internal states, and iterates through all of them. `state` is a 64-bit unsigned
 BigInt.
 
-##### `getState(): BigInt`
+##### `getState(): bigint`
 
 Returns a 64-bit unsigned BigInt representing the internal state of the
 generator.
+
+##### `seed(value?: bigint): void`
+
+Seeds the generator with a 64-bit BigInt. If the value is not provided, uses
+a value based on `Math.random()`.
+
+## Performance
+
+As of 2021, in V8 `pcg.randomInt()` is as fast as
+`Math.floor(Math.random() * n)`, but doesn't introduce bias. `pcg.random()` is
+2 times slower than `Math.random()`.
+
+In SpiderMonkey and JavaScriptCore both functions are 10 times slower than
+native equivalents.
 
 ## Working With This Repo
 

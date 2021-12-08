@@ -1,18 +1,15 @@
-import {randomBits, randomInt, random} from '../dist/index.js';
+import * as pcg from '../dist/index.js';
 
-const hex32 = (n) => '0x' + n.toString(16).padStart(8, '0');
-
-console.log('randomBits()\n');
-for (let i = 0; i < 10; i++) {
-    console.log(hex32(randomBits()));
-}
+pcg.setState(0x0123456789ABCDEFn);
 
 console.log('\nrandomInt(10)\n');
 for (let i = 0; i < 10; i++) {
-    console.log(Array(20).fill().map(() => randomInt(10)).join(' '));
+    console.log(Array.from({length: 20}, () => pcg.randomInt(10)).join(' '));
 }
 
 console.log('\nrandom()\n');
 for (let i = 0; i < 10; i++) {
-    console.log(random());
+    console.log(pcg.random());
 }
+
+console.log('\n');
